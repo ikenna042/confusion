@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import Moment from 'react-moment';
 
 class DishDetail extends Component {
     constructor(props) {
@@ -14,7 +15,7 @@ class DishDetail extends Component {
             const listItems = comments.map((comment) => 
                 <li key={comment.id} className="list-group-item">
                     {comment.comment} <br/>
-                    -- {comment.author}, {comment.date}
+                    -- {comment.author}, <Moment format="MMM D, YYYY">{comment.date}</Moment> 
                 </li>
             );
             return (
