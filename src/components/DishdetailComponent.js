@@ -10,14 +10,14 @@ class DishDetail extends Component {
     renderDish(dish) {
         if (dish != null) {
             console.log(dish);
-            const comments = dish.comments;
-            console.log(comments);
-            const listItems = comments.map((comment) => 
-                <li key={comment.id} className="list-group-item">
-                    {comment.comment} <br/>
-                    -- {comment.author}, <Moment format="MMM D, YYYY">{comment.date}</Moment> 
-                </li>
-            );
+            // const comments = dish.comments;
+            // console.log(comments);
+            // const listItems = comments.map((comment) => 
+            //     <li key={comment.id} className="list-group-item">
+            //         {comment.comment} <br/>
+            //         -- {comment.author}, <Moment format="MMM D, YYYY">{comment.date}</Moment> 
+            //     </li>
+            // );
             return (
                 <div className="row">
                     <div className="col-12 col-md-5 mt-5">
@@ -29,13 +29,14 @@ class DishDetail extends Component {
                             </CardBody>
                         </Card>
                     </div>
-                    <div className="col-12 col-md-5 mt-5">
-                    <ul className="list-group">
+                    {/* <div className="col-12 col-md-5 mt-5">
+                    <ul className="list-group list-unstyled">
+                        <h4>Comments</h4>
                         {listItems}
                     </ul>
-                    </div>
+                    </div> */}
+                    <div>{this.renderComments(this.props.selectedDish)}</div>
                     
-                
                 </div>
                 
                 
@@ -47,9 +48,29 @@ class DishDetail extends Component {
         }
     }
 
-    renderComments() {
-        const comments = this.props.selectedDish.comments;
-        console.log(comments);
+    renderComments(dish) {
+        const commentsArray = dish.comments;
+        if (commentsArray != null) {
+            // run shit
+            const listItems = commentsArray.map((comment) => 
+                <li key={comment.id} className="list-unstyled p-2">
+                    {comment.comment} <br/>
+                    -- {comment.author}, <Moment format="MMM D, YYYY">{comment.date}</Moment> 
+                </li>
+            );
+            return (
+                <div className="col-12 col-md-10 mt-5">
+                    <ul>
+                        <h4>Comments</h4>
+                        {listItems}
+                    </ul>
+                </div>
+            );
+        } else {
+            return (
+                <div></div>
+            );
+        }
     }
 
     render() {
@@ -57,7 +78,7 @@ class DishDetail extends Component {
             <div className="row">
                 {this.renderDish(this.props.selectedDish)}
                 <div>
-                {/* {this.renderComments()} */}
+                {/* {this.renderComments(this.props.selectedDish)} */}
                 </div>
             </div>
         );
