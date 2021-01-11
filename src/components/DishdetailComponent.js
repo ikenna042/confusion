@@ -1,23 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 import Moment from 'react-moment';
 
-class DishDetail extends Component {
-    constructor(props) {
-        super(props);
-    }
 
-    renderDish(dish) {
+
+    function RenderDish({dish}) {
         if (dish != null) {
             console.log(dish);
-            // const comments = dish.comments;
-            // console.log(comments);
-            // const listItems = comments.map((comment) => 
-            //     <li key={comment.id} className="list-group-item">
-            //         {comment.comment} <br/>
-            //         -- {comment.author}, <Moment format="MMM D, YYYY">{comment.date}</Moment> 
-            //     </li>
-            // );
             return (
                 <div className="row">
                     <div className="col-12 col-md-5 mt-5">
@@ -29,13 +18,9 @@ class DishDetail extends Component {
                             </CardBody>
                         </Card>
                     </div>
-                    {/* <div className="col-12 col-md-5 mt-5">
-                    <ul className="list-group list-unstyled">
-                        <h4>Comments</h4>
-                        {listItems}
-                    </ul>
-                    </div> */}
-                    <div>{this.renderComments(this.props.selectedDish)}</div>
+                    <div>
+                        <RenderComments comments={dish.comments} />
+                    </div>
                     
                 </div>
                 
@@ -48,8 +33,8 @@ class DishDetail extends Component {
         }
     }
 
-    renderComments(dish) {
-        const commentsArray = dish.comments;
+    function RenderComments({comments}) {
+        const commentsArray = comments;
         if (commentsArray != null) {
             // run shit
             const listItems = commentsArray.map((comment) => 
@@ -73,16 +58,15 @@ class DishDetail extends Component {
         }
     }
 
-    render() {
+    const DishDetail = (props) => {
         return (
             <div className="row">
-                {this.renderDish(this.props.selectedDish)}
+                <RenderDish dish={props.dish} />
                 <div>
-                {/* {this.renderComments(this.props.selectedDish)} */}
                 </div>
             </div>
         );
     }
-}
+
 
 export default DishDetail;
