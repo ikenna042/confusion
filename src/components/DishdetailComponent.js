@@ -25,7 +25,6 @@ import { Link } from 'react-router-dom';
                     
                 </div>
                 
-                
             );
         } else {
             return (
