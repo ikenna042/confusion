@@ -22,7 +22,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
         );
     };
 
-    function RenderComments({comments}) {
+    function RenderComments({comments, addComment, dishId}) {
         console.log(comments);
         if (comments != null)
             return (
@@ -38,7 +38,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                             );
                         })}
                     </ul>
-                    <Comment />
+                    <Comment dishId={dishId} addComment={addComment} />
                 </div>
             );
         else
@@ -72,7 +72,7 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
     
         handleSubmit(values) {
             this.toggleModal();
-            alert('Current state is' + JSON.stringify(values));
+            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
             console.log('Current state is' + JSON.stringify(values));
         }
     
@@ -85,7 +85,7 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
                     <ModalBody>
                         <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                             <Row className="form-group">
-                                <Col>
+                                <Col md={5}>
                                     <Label htmlFor="rating">Rating</Label>
                                     <Control.select model=".rating" id="rating" name="rating">
                                         <option>1</option>
@@ -117,10 +117,10 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="message" md={2}>Your Feedback</Label>
+                                <Label htmlFor="comment" md={2}>Comment</Label>
                                 <Col md={10}>
-                                    <Control.textarea model=".message" id="message" name="message"
-                                        rows="12"
+                                    <Control.textarea model=".comment" id="comment" name="comment"
+                                        rows="6"
                                         className="form-control" />
                                 </Col>
                             </Row>
@@ -151,7 +151,10 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
                 </div>
                 <div className="row">
                     <RenderDish dish={props.dish} />
-                    <RenderComments comments={props.comments} />
+                    <RenderComments comments={props.comments}
+                        addComment={props.addComment}
+                        dishId={props.dish.id}
+                    />
                 </div>
             </div>
         );
