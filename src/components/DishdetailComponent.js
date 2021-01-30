@@ -4,6 +4,7 @@ import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb,
          Modal, ModalBody, ModalHeader, Row, Col
         } from 'reactstrap';
 import Moment from 'react-moment';
+import { Control, Form, Errors, actions } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
@@ -72,9 +73,10 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
         }
     
         handleSubmit(values) {
-            this.toggleModal();
-            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
-            console.log('Current state is' + JSON.stringify(values));
+            console.log('Current State is: ' + JSON.stringify(values));
+            alert('Current State is: ' + JSON.stringify(values));
+            this.props.resetFeedbackForm();
+            // event.preventDefault();
         }
     
         render() {
@@ -84,7 +86,7 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody>
-                        <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                    <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
                             <Row className="form-group">
                                 <Col md={5}>
                                     <Label htmlFor="rating">Rating</Label>
@@ -126,7 +128,7 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
                                 </Col>
                             </Row>
                             <Button type="submit" value="submit" color="primary">Submit</Button>
-                        </LocalForm>
+                        </Form>
                     </ModalBody>
                     </Modal>
                 </div>
