@@ -25,7 +25,7 @@ import { baseUrl } from '../shared/baseUrl';
         );
     };
 
-    function RenderComments({comments, addComment, dishId}) {
+    function RenderComments({comments, postComment, dishId}) {
         console.log(comments);
         if (comments != null)
             return (
@@ -41,7 +41,7 @@ import { baseUrl } from '../shared/baseUrl';
                             );
                         })}
                     </ul>
-                    <Comment dishId={dishId} addComment={addComment} />
+                    <Comment dishId={dishId} postComment={postComment} />
                 </div>
             );
         else
@@ -75,7 +75,8 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
     
         handleSubmit(values) {
             console.log('Current State is: ' + JSON.stringify(values));
-            alert('Current State is: ' + JSON.stringify(values));
+            this.toggleModal();
+            this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
             this.props.resetFeedbackForm();
             // event.preventDefault();
         }
@@ -174,7 +175,7 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
                     <div className="row">
                         <RenderDish dish={props.dish} />
                         <RenderComments comments={props.comments}
-                            addComment={props.addComment}
+                            postComment={props.postComment}
                             dishId={props.dish.id}
                         />
                     </div>
