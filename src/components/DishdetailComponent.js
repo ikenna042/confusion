@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb,
-         BreadcrumbItem, Button, Form, FormGroup, Label, Input,
+         BreadcrumbItem, Button, FormGroup, Label, Input,
          Modal, ModalBody, ModalHeader, Row, Col
         } from 'reactstrap';
 import Moment from 'react-moment';
